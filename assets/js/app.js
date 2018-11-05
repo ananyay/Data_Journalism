@@ -84,9 +84,10 @@ function successHandle(healthdata) {
   .attr("cx", d => xLinearScale(d.poverty))
   .attr("cy", d => yLinearScale(d.healthcare))
   .attr("r", 12)
+  .attr("class","stateCircle")
   .attr("fill", "blue")
 
-  chartGroup.selectAll("text")
+  chartGroup.selectAll()
   .data(healthdata)
   .enter()
   .append("text")
@@ -94,9 +95,10 @@ function successHandle(healthdata) {
   .attr("x", d => xLinearScale(d.poverty))
   .attr("y", d => yLinearScale(d.healthcare))
   .attr("dy",5)
+  .attr("class","stateAbbr")
   .attr("text-anchor","middle")
   .attr("font-size","12px")
-  .attr("fill", "white");
+  .attr("fill", "white")
 
   // Initialize tool tip
   var toolTip = d3.tip()
@@ -110,13 +112,13 @@ function successHandle(healthdata) {
   chartGroup.call(toolTip);
   //  Create event listeners to display and hide the tooltip
   // onmouseover event
-  circlesGroup.on("mouseover", function(data) {
-  toolTip.show(data, this)
+  circlesGroup.on("mouseover", function(d) {
+  toolTip.show(d, this)
   })
 
   // onmouseout event
-  .on("mouseout", function(data) {
-  toolTip.hide(data)
+  .on("mouseout", function(d) {
+  toolTip.hide(d)
   })
 
   // y axis
