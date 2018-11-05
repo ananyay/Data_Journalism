@@ -106,10 +106,7 @@ function successHandle(healthdata) {
   .attr("font-size","12px")
   .attr("fill", "white");
 
-  // Step 6: Initialize tool tip
-
-  // ==============================
-
+  // Initialize tool tip
   var toolTip = d3.tip()
   .attr("class", "tooltip")
   .offset([80, -60])
@@ -117,11 +114,10 @@ function successHandle(healthdata) {
   return (`${d.state}<br>Poverty: ${d.poverty}%<br>Obesity: ${d.healthcare}% `);
   });
 
-  // Step 7: Create tooltip in the chart
-  // ==============================
+  // Create tooltip in the chart  
   chartGroup.call(toolTip);
-  // Step 8: Create event listeners to display and hide the tooltip
-  // ==============================
+  //  Create event listeners to display and hide the tooltip
+  // onmouseover event
   circlesGroup.on("mouseover", function(data) {
   toolTip.show(data, this)
   })
