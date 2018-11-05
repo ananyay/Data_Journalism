@@ -42,25 +42,17 @@ function errorHandle(error){
 function successHandle(healthdata) {
   console.log(healthdata)
   healthdata.forEach(function(data){
-    data.state = +data.state
-    data.abbr = +data.abbr
     data.poverty = +data.poverty
     data.povertyMoe = +data.povertyMoe    
-    data.state = +data.state
     data.income = +data.income
-    data.healthcare = +data.healthcare
-    data.healthcareLow = +data.healthcareLow
-    data.healthcareHigh = +data.healthcareHigh
-    
+    data.healthcare = +data.healthcare 
   })
 
-  // Step 2: Create scale functions
-  // ==============================
-
+  //Create scale function
   // x function
   var xLinearScale = d3.scaleLinear()
   .domain([d3.min(healthdata, d=>d[chosenXAxis])*0.9,
-      d3.max(healthdata, d => d[chosenXAxis])*1.1])
+      d3.max(healthdata, d =>d[chosenXAxis])*1.1])
   .range([0,chartWidth]);
 
   // y function
@@ -93,11 +85,10 @@ function successHandle(healthdata) {
   .attr("r", 12)
   .attr("fill", "blue")
 
-  chartGroup.selectAll("text-circles")
+  chartGroup.selectAll("text")
   .data(healthdata)
   .enter()
   .append("text")
-  .classed("text-circles",true)
   .text(d => d.abbr)
   .attr("x", d => xLinearScale(d.poverty))
   .attr("y", d => yLinearScale(d.healthcare))
@@ -111,7 +102,7 @@ function successHandle(healthdata) {
   .attr("class", "tooltip")
   .offset([80, -60])
   .html(function(d) {
-  return (`${d.state}<br>Poverty: ${d.poverty}%<br>Obesity: ${d.healthcare}% `);
+  return (`${d.state}<br>Poverty: ${d.poverty}%<br>healthcare: ${d.healthcare}% `);
   });
 
   // Create tooltip in the chart  
@@ -123,7 +114,7 @@ function successHandle(healthdata) {
   })
 
   // onmouseout event
-  .on("mouseout", function(data, index) {
+  .on("mouseout", function(data) {
   toolTip.hide(data)
   });
 
