@@ -1,7 +1,7 @@
 // @TODO: YOUR CODE HERE!
 // Define SVG area dimensions
-var svgWidth = 960;
-var svgHeight = 600;
+var svgWidth = 960
+var svgHeight = 600
 
 // Define the chart's margins as an object
 var margin = {
@@ -9,11 +9,11 @@ var margin = {
   right: 40,
   bottom: 60,
   left: 50
-};
+}
 
 // Define dimensions of the chart area
-var chartWidth = svgWidth - margin.left - margin.right;
-var chartHeight = svgHeight - margin.top - margin.bottom;
+var chartWidth = svgWidth - margin.left - margin.right
+var chartHeight = svgHeight - margin.top - margin.bottom
 
 // Create an SVG wrapper, append an SVG group that will hold our chart,
 // and shift the latter by left and top margins.
@@ -21,22 +21,23 @@ var svg = d3
   .select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
-  .attr("height", svgHeight);
+  .attr("height", svgHeight)
 
 // Append an SVG group
 var chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
   // Initial Params
-var chosenXAxis = "poverty";
+var chosenXAxis = "poverty"
 var chosenYaxis = "healthcare"
 
 // Import Data
+var url = "https://raw.githubusercontent.com/the-Coding-Boot-Camp-at-UT/UTAUS201807DATA2/master/homework-instructions/16-D3/Instructions/StarterCode/assets/data/data.csv?token=AmmYrFA8pmghRTWF3sU1K5OF3earhfDSks5b6YmqwA%3D%3D"
 var file = "assets/data/data.csv"
-d3.csv(file).then(successHandle, errorHandle);
+d3.csv(url).then(successHandle, errorHandle)
 
 function errorHandle(error){
-  throw err;
+  throw err
 }
 
 function successHandle(healthdata) {
@@ -53,27 +54,27 @@ function successHandle(healthdata) {
   var xLinearScale = d3.scaleLinear()
   .domain([d3.min(healthdata, d=>d[chosenXAxis])*0.9,
       d3.max(healthdata, d =>d[chosenXAxis])*1.1])
-  .range([0,chartWidth]);
+  .range([0,chartWidth])
 
   // y function
   var yLinearScale = d3.scaleLinear()
     .domain([0, d3.max(healthdata, d => d[chosenYaxis])*1.1])
-    .range([chartHeight, 0]);
+    .range([chartHeight, 0])
 
   // set bottom/left axes
-  var bottomAxis = d3.axisBottom(xLinearScale);
-  var leftAxis = d3.axisLeft(yLinearScale);
+  var bottomAxis = d3.axisBottom(xLinearScale)
+  var leftAxis = d3.axisLeft(yLinearScale)
 
   // x axis
   chartGroup.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
     .style("font-size", "16px")
-    .call(bottomAxis);
+    .call(bottomAxis)
 
   // y axis
   chartGroup.append("g")
     .style("font-size", "16px")
-    .call(leftAxis);
+    .call(leftAxis)
 
   // function for circles
   var circlesGroup = chartGroup.selectAll("circle")
@@ -103,7 +104,7 @@ function successHandle(healthdata) {
   .offset([80, -60])
   .html(function(d) {
   return (`${d.state}<br>Poverty: ${d.poverty}%<br>healthcare: ${d.healthcare}% `);
-  });
+  })
 
   // Create tooltip in the chart  
   chartGroup.call(toolTip);
@@ -116,8 +117,7 @@ function successHandle(healthdata) {
   // onmouseout event
   .on("mouseout", function(data) {
   toolTip.hide(data)
-  });
-
+  })
 
   // y axis
   chartGroup.append("text")
