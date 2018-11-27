@@ -32,8 +32,7 @@ var chosenXAxis = "poverty"
 var chosenYaxis = "healthcare"
 
 // Import Data
-var url = "https://raw.githubusercontent.com/the-Coding-Boot-Camp-at-UT/UTAUS201807DATA2/master/homework-instructions/16-D3/Instructions/StarterCode/assets/data/data.csv?token=AmmYrFA8pmghRTWF3sU1K5OF3earhfDSks5b6YmqwA%3D%3D"
-var file = "assets/data/data.csv"
+var url = "data.csv"
 d3.csv(url).then(successHandle, errorHandle)
 
 function errorHandle(error){
@@ -68,7 +67,7 @@ function successHandle(healthdata) {
   // x axis
   chartGroup.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
-    .style("font-size", "16px")
+    .style("font-size", "10px")
     .call(bottomAxis)
 
   // y axis
@@ -83,7 +82,7 @@ function successHandle(healthdata) {
   .append("circle")
   .attr("cx", d => xLinearScale(d.poverty))
   .attr("cy", d => yLinearScale(d.healthcare))
-  .attr("r", 12)
+  .attr("r", 15)
   .attr("class","stateCircle")
   .attr("fill", "blue")
 
@@ -113,7 +112,7 @@ function successHandle(healthdata) {
   //  Create event listeners to display and hide the tooltip
   // onmouseover event
   circlesGroup.on("mouseover", function(data) {
-  toolTip.show(data)
+  toolTip.show(data,this)
   })
 
   // onmouseout event
@@ -124,7 +123,7 @@ function successHandle(healthdata) {
   // y axis
   chartGroup.append("text")
   .attr("transform", "rotate(-90)")
-  .attr("y", 0 - margin.left -5)
+  .attr("y", 0 - margin.left)
   .attr("x", 0 - (chartHeight/ 2))
   .attr("dy", "1em")
   .classed("aText", true)
@@ -133,7 +132,7 @@ function successHandle(healthdata) {
   // x axis
   chartGroup.append("text")
   .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + 15})`)
-  .attr("dy", "1em")
+  // .attr("dy", "1em")
   .classed("aText", true)
   .text("Poverty Rate (%)");
 
