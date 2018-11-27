@@ -112,13 +112,13 @@ function successHandle(healthdata) {
   chartGroup.call(toolTip);
   //  Create event listeners to display and hide the tooltip
   // onmouseover event
-  circlesGroup.on("mouseover", function(d) {
-  toolTip.show(d, this)
+  circlesGroup.on("mouseover", function(data) {
+  toolTip.show(data)
   })
 
   // onmouseout event
-  .on("mouseout", function(d) {
-  toolTip.hide(d)
+  .on("mouseout", function(data) {
+  toolTip.hide(data)
   })
 
   // y axis
